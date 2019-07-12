@@ -1,0 +1,10 @@
+#!/bin/sh
+
+set -eu
+
+if [ "${1:-}" = "build" ]
+then
+	docker build --rm -t krex:latest docker
+else
+	docker run --rm -i -t -v $(pwd):/krex krex:latest $@
+fi

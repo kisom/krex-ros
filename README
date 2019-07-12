@@ -1,0 +1,15 @@
+krex: kyle's robot experimentation platform
+
+See the docs at https://krex.wntrmute.net/.
+
+There is a Docker container for building this; note that running the
+nodes in it is like to result in a number of failed nodes on account of
+needing specific hardware.
+
+To build the Docker image:
+	./docker/run-container build
+
+To run a container:
+	./docker/run-container [args]
+
+The default Docker behaviour is to run a build and exit.

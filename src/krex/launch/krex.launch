@@ -1,0 +1,7 @@
+<launch>
+
+  <group ns="somatic">
+    <node pkg="krex" name="drive" type="somatic_drive"/>
+  </group>
+
+</launch>
