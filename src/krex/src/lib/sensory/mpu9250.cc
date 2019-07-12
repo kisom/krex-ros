@@ -1,5 +1,3 @@
-#include <iostream>
-
 #include <krex/util/util.h>
 #include <krex/hardware/i2c.h>
 #include <krex/sensory/mpu9250.h>
@@ -158,7 +156,6 @@ MPU9250::Temperature(double *temp)
 	}
 	temp_out += temp_buf;
 	
-	std::cout << temp_out << std::endl;
 	temp_out -= TEMP_ROOM_OFFSET;
 	*temp = static_cast<double>(temp_out);
 	*temp /= TEMP_SENSITIVITY;
