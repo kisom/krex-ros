@@ -96,10 +96,17 @@ MotorHat::MotorHat(uint8_t bus, uint8_t addr) :
 
 
 bool
-MotorHat::Drive(const krex::Drive::ConstPtr &msg)
+MotorHat::Control(const krex::Drive::ConstPtr &msg)
 {
-	uint8_t	speed = static_cast<uint8_t>(msg->speed);
+	uint8_t speed = static_cast<const uint8_t>(msg->speed);
 
+	return this->Drive(msg->behaviour, speed);
+}
+
+
+bool
+MotorHat::Drive(const uint8_t behaviour, const uint8_t speed)
+{
 	this->ReleaseAll();
 
 	/*
@@ -109,7 +116,7 @@ MotorHat::Drive(const krex::Drive::ConstPtr &msg)
 	 * channel 3: LR
 	 */
 
-	switch (msg->behaviour) {
+	switch (behaviour) {
 	case krex::Drive::DRIVE_RELEASE:
 		// Already released.
 		break;
@@ -138,13 +145,13 @@ MotorHat::Drive(const krex::Drive::ConstPtr &msg)
 		WITH_HEALTHCHECK(this->SetMotor(MOTOR_LR, Behaviour::Backward, speed));
 		break;
 	default:
-		std::cerr << "invalid motor behaviour " << (int)msg->behaviour << std::endl;
+		std::cerr << "invalid motor behaviour " << (int)behaviour << std::endl;
 		// Getting a bad message isn't an indicator that the controller
 		// is unhealthy.
 		return false;
 	}
 
-	this->currentBehaviour = msg->behaviour;
+	this->currentBehaviour = behaviour;
 	this->currentSpeed = speed;
 	return true;
 }
@@ -172,6 +179,8 @@ MotorHat::Health(krex::DriveHealth *msg)
 }
 
 
+// Go is useful for checking the behaviour of all of the motors, and isn't
+// particularly useful for controlling the drivetrain in normal operation.
 bool
 MotorHat::Go(Behaviour behaviour, uint8_t speed)
 {

@@ -13,7 +13,7 @@ motorControl(const krex::Drive::ConstPtr &msg)
 {
 	ROS_INFO("received drive msg: behaviour=%d, speed=%d",
 		       	(int)msg->behaviour, (int)msg->speed);
-	if (!hat.Drive(msg)) {
+	if (!hat.Control(msg)) {
 		ROS_ERROR("somatic-drive: couldn't behave as %d", (int)msg->behaviour);
 	}
 }

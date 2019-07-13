@@ -33,7 +33,8 @@ public:
 	MotorHat(uint8_t addr);
 	MotorHat(uint8_t bus, uint8_t addr);
 
-	bool		Drive(const krex::Drive::ConstPtr &msg);
+	bool		Control(const krex::Drive::ConstPtr &msg);
+	bool		Drive(const uint8_t behaviour, const uint8_t speed);
 	bool		Go(Behaviour behaviour, uint8_t speed);
 	bool		SetMotor(uint8_t id, Behaviour behaviour, uint8_t speed);
 	bool		ReleaseAll();
