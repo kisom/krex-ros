@@ -129,6 +129,7 @@ MPU9250::Reset()
 		if (this->WhoAmI()) {
 			break;
 		}
+		krex::util::Sleep(10);
 	}
 
 	if (this->Healthy() && this->init()) {
